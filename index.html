@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Happy Birthday, My Love 🎂💌</title>
+  <meta name="description" content="Meow Meow Meow" />
+  <style>
+    :root{
+      --bg1:#0f1022;
+      --bg2:#1a1b3a;
+      --accent:#ff6fb5;
+      --accent2:#ffd166;
+      --accent3:#6fffe9;
+      --card:#fff7fb;
+      --ink:#3a2c35;
+      --shine:#fff9f2;
+      --safe-pad: env(safe-area-inset-bottom, 12px);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      color:#fff; background: radial-gradient(1200px 600px at 20% 10%, #22295a 0%, var(--bg1) 35%, var(--bg2) 100%);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      -webkit-touch-callout:none; -webkit-user-select:none; user-select:none;
+      touch-action:manipulation;
+    }
+    .stars{position:fixed; inset:0; pointer-events:none; z-index:0;
+      background: repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.18) 0 1px, transparent 2px 40px),
+                  radial-gradient(circle at 80% 10%, rgba(255,255,255,.12), transparent 40%),
+                  radial-gradient(circle at 10% 80%, rgba(255,255,255,.08), transparent 45%);
+      animation: twinkle 10s linear infinite; filter: saturate(1.2);}
+    @keyframes twinkle{0%,100%{opacity:.95}50%{opacity:.6}}
+    .container{position:relative; z-index:1; min-height:100dvh; display:grid; place-items:center; padding:20px 18px;}
+    h1{font-weight:800; text-align:center; margin:0 0 6px; font-size:clamp(1.4rem, 4.5vw, 2.2rem);
+      background: linear-gradient(90deg, #fff, var(--accent), var(--accent2));
+      -webkit-background-clip:text; background-clip:text; color:transparent; filter: drop-shadow(0 2px 0 rgba(0,0,0,.2));}
+    p.sub{margin:0 0 14px; opacity:.9; text-align:center; font-size:clamp(.9rem,.9vw + .6rem,1rem)}
+    .panel{width:min(1100px,96vw); border-radius:18px; padding:18px; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+      box-shadow:0 14px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03); backdrop-filter: blur(6px);}
+    .screen{display:none}
+    .screen.active{display:block;}
+    .fade-in{animation: fadeIn .6s ease forwards}
+    @keyframes fadeIn{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:translateY(0)}}
+
+    /* Cake */
+    .cake-area{display:grid; place-items:center; gap:14px}
+    .cake{position:relative; width:min(520px,94vw); height:320px; display:grid; place-items:end center;}
+    .cake-base{position:absolute; bottom:0; width:100%; height:150px; background: linear-gradient(180deg,#ffb6d9,#ff85c7 40%,#ff6fb5 60%,#cc4d97 100%);
+      border-radius:18px 18px 24px 24px; box-shadow: inset 0 -6px 0 rgba(0,0,0,.12);}
+    .icing{position:absolute; bottom:132px; left:50%; transform:translateX(-50%); width:92%; height:34px; border-radius:16px; background:var(--shine);
+      box-shadow:0 10px 0 rgba(0,0,0,.06);}
+    .candles{position:absolute; bottom:150px; width:100%; display:flex; justify-content:space-evenly; align-items:flex-end; padding:0 6%}
+    /* Larger touch area for each candle */
+    .candle{--h:64px; width:26px; height:var(--h); border-radius:10px; position:relative; cursor:pointer; transition: transform .18s; display:flex; align-items:flex-end; justify-content:center; padding:8px 6px;}
+    @media (max-width:420px){ .candle{--h:54px; width:22px; padding:9px 6px;} }
+    .candle:active{transform:scale(.98)}
+    .candle .stick{position:absolute; inset:0; background: repeating-linear-gradient(45deg,#ffe3ef 0 10px,#ffd2e6 10px 20px); border-radius:10px; box-shadow: inset 0 -4px 0 rgba(0,0,0,.06);}
+    .wick{position:absolute; top:-12px; left:50%; transform:translateX(-50%); width:4px; height:12px; background:#333; border-radius:2px}
+    .flame{position:absolute; top:-30px; left:50%; transform:translateX(-50%); width:18px; height:30px; border-radius:50% 50% 46% 46%;
+      background: radial-gradient(circle at 50% 35%, #fff 0 30%, #ffd166 35% 65%, #ff7a00 70% 100%); filter: blur(.2px) drop-shadow(0 0 12px #ffb703);
+      animation:flicker .12s infinite alternate ease-in-out; transform-origin:50% 100%;}
+    .flame.off{opacity:0; transform:translateX(-50%) scale(.6); filter:blur(3px); transition: all .28s ease}
+    @keyframes flicker{from{transform:translateX(-50%) rotate(-2deg) scale(1)}to{transform:translateX(-50%) rotate(2deg) scale(1.06)}}
+
+    /* Buttons row (sticky on mobile bottom) */
+    .btnrow{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:6px;}
+    .controls{position:sticky; bottom:calc(var(--safe-pad) + 8px); display:flex; justify-content:center; padding:10px 6px; width:100%; background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent); border-radius:16px; margin-top:12px;}
+    .btn{appearance:none; border:0; padding:12px 16px; border-radius:14px; font-weight:800; cursor:pointer; font-size:1rem;
+      background: linear-gradient(180deg,#fff,#f3eaff); color:#2b1b2d; box-shadow:0 8px 20px rgba(0,0,0,.18);}
+    .btn.secondary{background: linear-gradient(180deg,#181a3a,#0f1030); color:#f3ecff; border:1px solid rgba(255,255,255,.08)}
+    .btn:active{transform:translateY(1px)}
+    /* Curtain */
+    .curtain{position:fixed; inset:0; background: radial-gradient(1000px 600px at 50% 50%, rgba(255,255,255,.12), rgba(0,0,0,.65)); opacity:0; pointer-events:none; transition:.45s; z-index:30;}
+    .curtain.show{opacity:1}
+
+    /* Confetti canvas */
+    #confetti{position:fixed; inset:0; z-index:35; pointer-events:none; display:block;}
+
+    /* Card */
+    .card-area{display:grid; gap:12px; place-items:center}
+    .card-wrap{perspective:1200px; width:min(720px,92vw); height:420px; touch-action:none;}
+    .card{width:100%; height:100%; position:relative; transform-style:preserve-3d; cursor:pointer; border-radius:18px; transition:transform .9s cubic-bezier(.2,.7,.1,1); will-change:transform;}
+    .card .face{position:absolute; inset:0; border-radius:18px; backface-visibility:hidden; overflow:hidden; box-shadow:0 12px 34px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);}
+    .card .front{
+      background: linear-gradient(160deg,#dbeafe,#eef2ff);
+      display:grid; place-items:center; text-align:center; padding:18px; color:#2b1b2d;
+    }
+    .ribbon{position:absolute; inset:auto 0 40% 0; display:flex; justify-content:center;}
+    .ribbon span{background:var(--accent); color:white; padding:8px 14px; border-radius:999px; font-weight:800;}
+    .card .inside{
+      background: linear-gradient(180deg,#f0f9ff,#e0e7ff);
+      transform:rotateY(180deg); color:var(--ink); padding:18px;
+      display:grid; grid-template-columns:1.2fr .8fr; gap:12px; align-items:start;
+    }
+    .open .card{transform:rotateY(180deg)}
+    .message{font-size:clamp(.95rem,.9vw + .6rem,1.05rem); line-height:1.6}
+    .signature{margin-top:auto; font-weight:800; font-size:1rem}
+    .flower{align-self:center; justify-self:center; width:220px; height:220px; position:relative;}
+    .petal{position:absolute; top:50%; left:50%; width:84px; height:44px; background: radial-gradient(ellipse at 60% 50%,#fff 0 55%,#e0e7ff 70% 100%);
+      border-radius:999px; transform-origin:0 50%; opacity:0; animation:bloom .9s ease forwards var(--delay);}
+    @keyframes bloom{from{transform:rotate(var(--rot)) translateX(-60px) scale(.22); opacity:0}to{transform:rotate(var(--rot)) translateX(0) scale(1); opacity:1}}
+    .core{position:absolute; top:60%; left:50%; transform:translate(-50%,-50%); width:76px; height:76px; border-radius:50%; background: radial-gradient(circle at 35% 35%,#fff 0 30%,#ffd166 50% 100%)}
+
+    /* Helpers */
+    .hint{font-size:.95rem; opacity:.9; text-align:center}
+    .hidden{display:none!important}
+    .mt{margin-top:8px}
+    [role="button"]{touch-action:manipulation}
+    @media (max-width:720px){
+      .cake{height:260px}
+      .card-wrap{height:360px}
+      .card .inside{grid-template-columns:1fr; height:100%}
+      .flower{order:-1; width:160px; height:160px}
+      .panel{padding:14px}
+      .controls{padding:8px}
+      .btn{padding:10px 12px; font-size:.95rem}
+    }
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .flame{animation:none}
+      .card{transition:none}
+      .open .card{transform:rotateY(180deg)}
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <canvas id="confetti" class="hidden" aria-hidden="true"></canvas>
+  <div class="curtain" id="curtain" aria-hidden="true"></div>
+
+  <main class="container" id="app" role="application" aria-labelledby="mainTitle">
+    <!-- Cake -->
+    <section id="screen-cake" class="panel screen active fade-in" aria-live="polite">
+      <h1 id="mainTitle">🎂 Happy Birthday, My Muffin</h1>
+      <p class="sub">Tap each candle to blow them out — or swipe over them to "blow" multiple at once ✨</p>
+
+      <div class="cake-area">
+        <div class="cake" id="cake" role="img" aria-label="Birthday cake with candles">
+          <div class="cake-base" aria-hidden="true"></div>
+          <div class="icing" aria-hidden="true"></div>
+          <div class="candles" id="candles" aria-hidden="false"></div>
+        </div>
+
+        <div class="controls" role="group" aria-label="Cake controls">
+          <div class="btnrow">
+            <button class="btn secondary" id="resetBtn" aria-label="Reset cake (relight candles)">↺ Reset</button>
+            <button class="btn" id="autoBlowBtn" aria-pressed="false" aria-label="Blow all candles automatically">💨 Blow All</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card -->
+    <section id="screen-card" class="panel screen" aria-hidden="true">
+      <div class="card-area">
+        <h1>💌 A little cutsey note for you</h1>
+        <div class="card-wrap" id="cardWrap" tabindex="0" role="group" aria-label="Birthday card. Tap to open. Swipe left or right to flip.">
+          <div class="card" id="card" aria-live="polite" aria-atomic="true">
+            <div class="face front">
+              <h2>Tap or swipe to open</h2>
+              <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExemJvMzZ0MXRpbjAzNzhjcGxnMmxtZTRvYzk3Z3IyZ3prMDAzZzV4MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pZMdcPjOsxngc/giphy.gif"
+                   alt="Cute birthday animation" style="max-width:200px; margin:12px auto; display:block; border-radius:12px;" />
+              <p class="hint">For the one who lights up my world ✨</p>
+            </div>
+            <div class="face inside">
+              <div class="message">
+                <h2>Happy Birthday, Mahnewrrr</h2>
+                <p>
+                  You make life brighter just by being in it, and I’m so lucky to call you my best friend.  
+                  Today is all about celebrating <em>you</em> — your laughter, your kindness, and the joy you bring to everyone around you.
+                </p>
+                <p>
+                  I pray that Allah blesses you with health, happiness, and endless success.  
+                  May all your dreams come true and may your days ahead be filled with peace and smiles.
+                </p>
+                <div class="signature">— Yours, always</div>
+              </div>
+              <div class="flower" id="flower" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls" role="group" aria-label="Card controls">
+          <div class="btnrow">
+            <button class="btn" id="flipBtn" aria-label="Flip card">🔁 Flip</button>
+            <button class="btn secondary" id="replayBtn" aria-label="Back to cake">🎂 Back to Cake</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Short helpers
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+    const screenCake = $('#screen-cake');
+    const screenCard = $('#screen-card');
+    const candlesWrap = $('#candles');
+    const cardWrap = $('#cardWrap');
+    const card = $('#card');
+    const flower = $('#flower');
+    const confettiCanvas = $('#confetti');
+    const resetBtn = $('#resetBtn');
+    const replayBtn = $('#replayBtn');
+    const flipBtn = $('#flipBtn');
+    const autoBlowBtn = $('#autoBlowBtn');
+    const curtain = $('#curtain');
+    const cake = $('#cake');
+
+    // Config
+    let flamesOut = 0;
+    let totalCandles = 5; // change if you want more
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const smallDevice = window.innerWidth < 420;
+    const confettiCount = smallDevice ? 80 : 150;
+
+    // Vibration helper
+    const vib = (pattern=20) => { if(navigator.vibrate) navigator.vibrate(pattern); }
+
+    // Create candles (touch optimized)
+    function createCandles(){
+      candlesWrap.innerHTML = '';
+      flamesOut = 0;
+      for(let i=0;i<totalCandles;i++){
+        const c = document.createElement('div');
+        c.className = 'candle';
+        c.setAttribute('role','button');
+        c.setAttribute('aria-label', `Candle ${i+1}`);
+        c.tabIndex = 0;
+        c.innerHTML = `<div class="stick"></div><div class="wick"></div><div class="flame"></div>`;
+        candlesWrap.appendChild(c);
+
+        // pointerdown to support touch and mouse
+        c.addEventListener('pointerdown', (ev) => {
+          ev.preventDefault();
+          tryExtinguish(c);
+        });
+        // keyboard support: space/enter
+        c.addEventListener('keydown', (ev) => {
+          if(ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            tryExtinguish(c);
+          }
+        });
+      }
+      // Allow "swipe/brush" to blow multiple candles
+      enableBrushExtinguish();
+    }
+
+    function tryExtinguish(candleEl){
+      const flame = candleEl.querySelector('.flame');
+      if(!flame || flame.classList.contains('off')) return;
+      flame.classList.add('off'); flamesOut++;
+      vib(18);
+      if(flamesOut === totalCandles){
+        // small pause then show card
+        setTimeout(showCard, 600);
+      }
+    }
+
+    createCandles();
+
+    // Brush extinguish: when user touches and moves over candles
+    function enableBrushExtinguish(){
+      // We'll listen on the candlesWrap for pointer events and track active pointer
+      let activePointer = null;
+      candlesWrap.addEventListener('pointerdown', (e) => {
+        activePointer = e.pointerId;
+        candlesWrap.setPointerCapture && candlesWrap.setPointerCapture(activePointer);
+        checkPointerOver(e);
+      }, {passive:false});
+      candlesWrap.addEventListener('pointermove', (e) => {
+        if(e.pointerId !== activePointer) return;
+        checkPointerOver(e);
+      }, {passive:true});
+      candlesWrap.addEventListener('pointerup', (e) => {
+        if(e.pointerId === activePointer){
+          try { candlesWrap.releasePointerCapture && candlesWrap.releasePointerCapture(activePointer); } catch {}
+          activePointer = null;
+        }
+      });
+      function checkPointerOver(e){
+        const touchX = e.clientX, touchY = e.clientY;
+        const el = document.elementFromPoint(touchX, touchY);
+        if(!el) return;
+        const candle = el.closest('.candle');
+        if(candle) tryExtinguish(candle);
+      }
+    }
+
+    // Auto blow button (for accessibility / quick demo)
+    autoBlowBtn.addEventListener('click', () => {
+      autoBlowBtn.setAttribute('aria-pressed','true');
+      vib([30,10,30]);
+      const all = $$('.candle');
+      let i = 0;
+      const t = setInterval(()=>{
+        if(i >= all.length){ clearInterval(t); setTimeout(()=>autoBlowBtn.setAttribute('aria-pressed','false'),300); return; }
+        tryExtinguish(all[i]); i++;
+      },120);
+    });
+
+    // Show card
+    function showCard(){
+      curtain.classList.add('show');
+      setTimeout(()=> {
+        screenCake.classList.remove('active');
+        screenCake.setAttribute('aria-hidden','true');
+        screenCard.classList.add('active');
+        screenCard.setAttribute('aria-hidden','false');
+        curtain.classList.remove('show');
+        launchConfetti();
+        bloomFlower();
+        // focus card for keyboard users
+        setTimeout(()=> cardWrap.focus(), 450);
+      }, 520);
+    }
+
+    // Reset cake
+    function resetCake(){
+      screenCard.classList.remove('active');
+      screenCard.setAttribute('aria-hidden','true');
+      screenCake.classList.add('active');
+      screenCake.setAttribute('aria-hidden','false');
+      createCandles();
+      // small haptic
+      vib(15);
+    }
+    resetBtn.addEventListener('click', resetCake);
+    replayBtn.addEventListener('click', resetCake);
+
+    // Card open/flip handling
+    let opened = false;
+    cardWrap.addEventListener('click', toggleCard);
+    flipBtn.addEventListener('click', toggleCard);
+
+    function toggleCard(){
+      opened = !opened;
+      cardWrap.classList.toggle('open', opened);
+      // add aria-live message
+      card.setAttribute('aria-label', opened ? 'Card opened' : 'Card closed');
+      vib(8);
+    }
+
+    // Swipe gestures for the card (touch-first)
+    (function addCardGestures(){
+      let startX = 0, startY = 0, startTime = 0;
+      const threshold = 30; // px
+      const restraint = 75;
+      cardWrap.addEventListener('touchstart', (e) => {
+        if(e.touches.length > 1) return;
+        startX = e.touches[0].clientX; startY = e.touches[0].clientY; startTime = Date.now();
+      }, {passive:true});
+      cardWrap.addEventListener('touchend', (e) => {
+        const touch = e.changedTouches[0];
+        const distX = touch.clientX - startX;
+        const distY = touch.clientY - startY;
+        const elapsed = Date.now() - startTime;
+        if(Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){
+          // horizontal swipe -> flip
+          toggleCard();
+        } else if(distY > 80 && Math.abs(distX) < restraint){
+          // swipe down - go back to cake
+          resetCake();
+        } else if(elapsed < 250 && Math.abs(distX) < 10 && Math.abs(distY) < 10){
+          // a quick tap (already handled by click)
+        }
+      }, {passive:true});
+
+      // Keyboard: left/right to flip, down to return
+      cardWrap.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); toggleCard(); }
+        if(e.key === 'ArrowDown') { e.preventDefault(); resetCake(); }
+      });
+    })();
+
+    // Flower bloom
+    function bloomFlower(){
+      flower.innerHTML = '';
+      const petals = 12;
+      for(let i=0;i<petals;i++){
+        const p = document.createElement('div');
+        p.className = 'petal';
+        p.style.setProperty('--rot', `${(360/petals)*i}deg`);
+        p.style.setProperty('--delay', `${i*0.08}s`);
+        flower.appendChild(p);
+      }
+      const core = document.createElement('div'); core.className = 'core'; flower.appendChild(core);
+    }
+
+    // CONFETTI - simple performant particle effect using small circles
+    const ctx = confettiCanvas.getContext && confettiCanvas.getContext('2d');
+    let confetti = [];
+    let confettiAnim = null;
+
+    function launchConfetti() {
+      if(!ctx) return;
+      if(isReducedMotion) return;
+      confettiCanvas.classList.remove('hidden');
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+      confetti = [];
+      const count = Math.min(confettiCount, 220);
+      for (let i = 0; i < count; i++) {
+        confetti.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * -confettiCanvas.height,
+          r: Math.random() * 6 + 3,
+          d: Math.random() * Math.PI * 2,
+          color: `hsl(${Math.random() * 360},100%,60%)`,
+          tilt: (Math.random() * 10) - 5,
+          speed: 1 + Math.random() * 3
+        });
+      }
+      let start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        confetti.forEach(c => {
+          ctx.beginPath();
+          ctx.ellipse(c.x + Math.sin(c.d) * 4, c.y, c.r, Math.max(1.5, c.r * 0.6), 0, 0, Math.PI * 2);
+          ctx.fillStyle = c.color;
+          ctx.fill();
+          c.y += c.speed + Math.random() * 1.2;
+          c.x += Math.sin(c.d) * 0.8;
+          c.d += 0.02;
+          if (c.y - c.r > confettiCanvas.height) {
+            c.y = -10 - Math.random() * 40;
+            c.x = Math.random() * confettiCanvas.width;
+          }
+        });
+        if (elapsed < 5200) {
+          confettiAnim = requestAnimationFrame(step);
+        } else {
+          confettiCanvas.classList.add('hidden');
+          ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+        }
+      }
+      confettiAnim = requestAnimationFrame(step);
+    }
+
+    // ensure canvas resizes
+    function onResize(){
+      if(ctx){
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+      }
+    }
+    window.addEventListener('resize', onResize, {passive:true});
+    onResize();
+
+    // Accessibility: escape key returns to cake
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') resetCake();
+    });
+
+    // Set up initial state
+    (function init(){
+      // Set safe area padding for sticky controls (in CSS via env)
+      createCandles();
+      // Focus hint for screen readers
+      screenCake.setAttribute('aria-hidden','false');
+    })();
+
+    // Clean up if user leaves
+    window.addEventListener('pagehide', () => {
+      if(confettiAnim) cancelAnimationFrame(confettiAnim);
+    });
+
+    // Prevent accidental text selection on long-press on mobile
+    document.addEventListener('touchmove', function(){}, {passive:true});
+  </script>
+</body>
+</html>
